@@ -10,9 +10,19 @@ const input = document.getElementById("userinput")! as HTMLInputElement;
 const form = document.querySelector("form")!;
 
 //plan = arr of Todos
-let plan: Todo[] = [];
+let plan: Todo[] = getLocalStorageItems();
+//display every obj that are stored in the arr named plan
+plan.forEach(createDOMelements);
+function getLocalStorageItems(): Todo[] {
+  const planJSON = localStorage.getItem("todos");
+  if (planJSON === null) {
+    return [];
+  } else {
+    return JSON.parse(planJSON);
+  }
+}
 
-const createDOMelements = (item: Todo) => {
+function createDOMelements(item: Todo) {
   const newTodoBox = document.createElement("div");
   newTodoBox.id = "newTodoBox";
   form.appendChild(newTodoBox);
@@ -22,7 +32,7 @@ const createDOMelements = (item: Todo) => {
   const newTask = document.createElement("label");
   newTask.innerHTML = item.task;
   newTodoBox.appendChild(newTask);
-};
+}
 
 const submithandler = (e: SubmitEvent) => {
   e.preventDefault();
@@ -35,7 +45,7 @@ const submithandler = (e: SubmitEvent) => {
   createDOMelements(newTaskObj);
   plan.push(newTaskObj);
   console.log(plan);
-
+  localStorage.setItem("todos", JSON.stringify(plan));
   input.value = "";
 };
 
