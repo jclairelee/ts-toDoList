@@ -1,0 +1,126 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #2c2268;
+}
+.todos {
+  background-color: white;
+  border-radius: 25px;
+  margin: auto auto;
+  padding: 2rem;
+
+  &__date {
+    font-size: 3rem;
+    line-height: 1.1;
+    color: #242424;
+  }
+
+  &__total {
+    font-size: 2rem;
+    line-height: 1.1;
+    color: #242424;
+  }
+
+  &__btn {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    color: white;
+    background-color: #535bf2;
+    cursor: pointer;
+    transition: border-color 0.25s;
+
+    &:hover {
+      border-color: #646cff;
+    }
+    &:focus,
+    &:focus-visible {
+      background-color: #7a80f3;
+    }
+  }
+  &__newTodoBox {
+    position: relative;
+    display: flex;
+    margin: 1rem;
+    align-items: center;
+    color: #242424;
+  }
+  &__textlist {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+  }
+
+  &__delete {
+    height: 1.75rem;
+    position: absolute;
+    right: 0;
+    &:hover {
+      box-shadow: 3px 3px 5px #360458d1;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    &:focus,
+    &:active,
+    &:focus-visible {
+      background-color: whitesmoke;
+    }
+  }
+  &__checkbox {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+  }
+  &__userInput {
+    width: 20rem;
+    height: 2rem;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    &:placeholder-shown {
+      padding-left: 0.25rem;
+    }
+    &:focus,
+    &:active {
+      padding-left: 0.25rem;
+    }
+  }
+}
+
+input[type="checkbox"]:checked + label {
+  position: relative;
+}
+
+input[type="checkbox"]:checked + label:before {
+  content: "";
+  position: absolute;
+  border-bottom: 2px #242424 solid;
+  width: 110%;
+  top: 55%;
+  left: -3px;
+  animation: crossOff ease-out 0.4s;
+}
+@keyframes crossOff {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 110%;
+    border-bottom: 2px #242424 solid;
+  }
+}

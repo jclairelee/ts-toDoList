@@ -2,28 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>toDos</title>
   </head>
   <body>
-    <form action="submit" id="todo">
-      <h1 class="date">Friday, February 24</h1>
-      <h2 class="tasks">Tasks</h2>
-      <input type="text" id="userinput" placeholder="Add a new task" />
-      <button id="btn" type="submit">add list</button>
-      <!-- <div class="round">
-        <input type="checkbox" checked id="checkbox" />
-        <label for="checkbox">Go for a walk</label>
-      </div>
-      <div class="round">
-        <input type="checkbox" checked id="checkbox" />
-        <label for="checkbox">Learn Typescript</label>
-      </div>
-      <div class="round">
-        <input type="checkbox" checked id="checkbox" />
-        <label for="checkbox">Clean up the house</label>
-      </div> -->
+    <form action="submit" id="todo" class="todos">
+      <h1 class="todos__date"></h1>
+      <h2 class="todos__total"></h2>
+      <input
+        type="text"
+        id="userinput"
+        placeholder="Add a new task"
+        class="todos__userInput"
+        autofocus
+      />
+      <button id="btn" type="submit" class="todos__btn">Add Task</button>
     </form>
     <script type="module" src="/src/main.ts"></script>
   </body>
