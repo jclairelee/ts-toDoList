@@ -57,7 +57,7 @@ function updatePlan(updatedPlan: Todo[], plan: Todo[]) {
 
 function updateStatus(plan: Todo[]) {
   updateLocalStorage(plan);
-  updateTaskCount(plan); // Update task count
+  updateTaskCount(plan);
 }
 
 function updateTaskCount(plan: Todo[]) {

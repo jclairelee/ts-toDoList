@@ -17,7 +17,7 @@ export interface Todo {
 const input = document.getElementById("task")! as HTMLInputElement;
 const priorityInput = document.getElementById(
   "userInput-priority"
-)! as HTMLSelectElement; // Corrected ID
+)! as HTMLSelectElement;
 const form = document.querySelector("form")! as HTMLFormElement;
 
 const plan: Todo[] = getLocalStorageItems();
@@ -47,7 +47,6 @@ form.addEventListener("submit", (e: SubmitEvent) => {
   updateLocalStorage(plan);
   updateTaskCount(plan);
 
-  // Clear input fields
   input.value = "";
   priorityInput.value = "low";
 });
