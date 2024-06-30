@@ -1,153 +1,62 @@
 import "./style.scss";
+import { renderTodayDate } from "./components/date";
+import {
+  getLocalStorageItems,
+  updateLocalStorage,
+} from "./components/localStorage";
+import { createTaskElement } from "./components/tasks";
+import { createMenuButton } from "./components/menuButton";
 
-interface Todo {
+export interface Todo {
   id: number;
   task: string;
   completed: boolean;
+  priority: "low" | "medium" | "high";
 }
 
-const input = document.getElementById("userinput")! as HTMLInputElement;
-const form = document.querySelector("form")!;
+const input = document.getElementById("task")! as HTMLInputElement;
+const priorityInput = document.getElementById(
+  "userInput-priority"
+)! as HTMLSelectElement; // Corrected ID
+const form = document.querySelector("form")! as HTMLFormElement;
 
-//plan = arr of Todos
 const plan: Todo[] = getLocalStorageItems();
 
-const todaysDate = document.querySelector("h1")! as HTMLHeadingElement;
-todaysDate.innerHTML = getDate();
+renderTodayDate();
+updateTaskCount(plan);
 
-const totalnum = document.querySelector("h2")! as HTMLHeadingElement;
-totalnum.innerHTML = `${plan.length} Tasks`;
+plan.forEach((item) => createTaskElement(item, form, plan));
 
-//display every obj that are stored in the arr named plan
-plan.forEach(createDOMelements);
-
-function getDate() {
-  let date = new Date();
-  let month: string;
-  switch (date.getMonth()) {
-    case 0:
-      month = "January";
-      break;
-    case 1:
-      month = "February";
-      break;
-    case 2:
-      month = "March";
-      break;
-    case 3:
-      month = "April";
-      break;
-    case 4:
-      month = "May";
-      break;
-    case 5:
-      month = "June";
-      break;
-    case 6:
-      month = "July";
-      break;
-    case 7:
-      month = "August";
-      break;
-    case 8:
-      month = "September";
-      break;
-    case 9:
-      month = "October";
-      break;
-    case 10:
-      month = "November";
-      break;
-    case 11:
-      month = "December";
-      break;
-    default:
-      month = "not found!";
-  }
-  let day = date.getDate();
-  let yr = date.getFullYear();
-  return `${month} ${day}, ${yr}`;
-}
-function getLocalStorageItems(): Todo[] {
-  const planJSON = localStorage.getItem("todos");
-  if (planJSON === null) {
-    return [];
-  } else {
-    return JSON.parse(planJSON);
-  }
-}
-function updateStatus() {
-  localStorage.setItem("todos", JSON.stringify(plan));
-  totalnum.innerHTML = `${plan.length} Tasks`;
-  window.location.reload();
-}
-function removeOldList(
-  elToDelete: HTMLDivElement,
-  clickedItem: HTMLImageElement
-) {
-  elToDelete.remove();
-  const current = clickedItem.previousElementSibling;
-  const toBeDeleted = current?.innerHTML;
-
-  const listJSON = localStorage.getItem("todos");
-  if (listJSON !== null) {
-    const taskArr = JSON.parse(listJSON);
-    console.log(taskArr);
-    const result = taskArr.filter((item: any) => {
-      return item.task !== toBeDeleted;
-    });
-    console.log(result);
-    localStorage.setItem("todos", JSON.stringify(result));
-    totalnum.innerHTML = `${result.length} Tasks`;
-    window.location.reload();
-  }
-}
-function createDOMelements(item: Todo) {
-  const newTodoBox = document.createElement("div");
-  const checkbox = document.createElement("input");
-  const newTask = document.createElement("label");
-  const deleteOldTask = document.createElement("img");
-
-  newTodoBox.className = "todos__newTodoBox";
-  form.appendChild(newTodoBox);
-
-  checkbox.type = "checkbox";
-  checkbox.className = "todos__checkbox";
-  newTodoBox.appendChild(checkbox);
-  checkbox.checked = item.completed;
-
-  newTask.className = "todos__textlist";
-  newTask.innerHTML = item.task;
-  newTodoBox.appendChild(newTask);
-
-  deleteOldTask.src = "/delete.png";
-  deleteOldTask.className = "todos__delete";
-  newTodoBox.appendChild(deleteOldTask);
-
-  deleteOldTask.addEventListener("click", () =>
-    removeOldList(newTodoBox, deleteOldTask)
-  );
-  checkbox.addEventListener("change", function () {
-    item.completed = checkbox.checked;
-    updateStatus();
-  });
-}
-
-const submithandler = (e: SubmitEvent) => {
+form.addEventListener("submit", (e: SubmitEvent) => {
   e.preventDefault();
 
-  //newTaskObj is created, which will be appended into the array of plan
+  if (input.value === "" || input.value === null) {
+    alert("Task cannot be empty");
+    return;
+  }
+
   const newTaskObj: Todo = {
     id: plan.length + 1,
     task: input.value,
     completed: false,
+    priority: priorityInput.value as "low" | "medium" | "high",
   };
-  createDOMelements(newTaskObj);
+  console.log(newTaskObj);
+  createTaskElement(newTaskObj, form, plan);
   plan.push(newTaskObj);
-  console.log(plan);
-  localStorage.setItem("todos", JSON.stringify(plan));
-  updateStatus();
-  input.value = "";
-};
+  updateLocalStorage(plan);
+  updateTaskCount(plan);
 
-form.addEventListener("submit", submithandler);
+  // Clear input fields
+  input.value = "";
+  priorityInput.value = "low";
+});
+
+createMenuButton(form);
+
+function updateTaskCount(plan: Todo[]) {
+  const totalnum = document.querySelector(
+    "h2.todos__total"
+  ) as HTMLHeadingElement;
+  totalnum.innerHTML = `${plan.length} Tasks`;
+}

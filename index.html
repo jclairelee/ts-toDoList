@@ -9,14 +9,27 @@
     <form action="submit" id="todo" class="todos">
       <h1 class="todos__date"></h1>
       <h2 class="todos__total"></h2>
-      <input
-        type="text"
-        id="userinput"
-        placeholder="Add a new task"
-        class="todos__userInput"
-        autofocus
-      />
-      <button id="btn" type="submit" class="todos__btn">Add Task</button>
+      <div class="todos__userInput">
+        <input
+          type="text"
+          id="task"
+          placeholder="Add a new task"
+          class="todos__userInput__task"
+          autofocus
+        />
+        <select
+          name="priority"
+          id="userInput-priority"
+          class="todos__userInput__priority"
+        >
+          <option value="low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <button id="btn" type="submit" class="todos__userInput__btn">
+          Add
+        </button>
+      </div>
     </form>
     <script type="module" src="/src/main.ts"></script>
   </body>
