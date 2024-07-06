@@ -1,3 +1,5 @@
+@import "mixin.scss";
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -7,7 +9,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
   --primary-background: #1f1a3f;
   --secondary-background: #2c2268;
   --text-color: #f0f0f0;
@@ -54,6 +55,10 @@ body {
   &__textlist {
     font-size: 1.5rem;
     padding-left: 1rem;
+    color: var(--text-color);
+  }
+  &__pri {
+    color: var(--text-color);
   }
 
   &__delete {
@@ -162,32 +167,56 @@ input[type="checkbox"]:checked + label:before {
     border-bottom: 2px #242424 solid;
   }
 }
-.menu-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  position: static;
-
-  &-shadow {
-    background-color: var(--primary-background);
-    width: 6rem;
-    height: 6rem;
+.menu {
+  &-btn {
     position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #ffffff;
     border-radius: 50%;
     display: flex;
-    top: 0;
-    left: 45%;
-
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: static;
+
+    &-shadow {
+      background-color: var(--primary-background);
+      width: 6rem;
+      height: 6rem;
+      position: absolute;
+      border-radius: 50%;
+      display: flex;
+      top: 0;
+      left: 45%;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &-sub {
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+    position: absolute;
+    top: 3rem;
+    justify-content: space-between;
+    width: 85%;
+
+    &Data {
+      @include subIcons;
+    }
+    &Print {
+      @include subIcons;
+      margin-right: 8.5rem;
+    }
+    &List {
+      @include subIcons;
+    }
+    &History {
+      @include subIcons;
+    }
   }
 }

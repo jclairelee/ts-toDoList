@@ -1,0 +1,11 @@
+@mixin subIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15.5rem;
+  height: 2.5rem;
+  background-color: #9c9cd2;
+  fill: white;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
