@@ -49,6 +49,7 @@ body {
     position: relative;
     display: flex;
     margin: 1rem;
+    top: 15%;
     align-items: center;
     color: #242424;
   }
@@ -59,10 +60,15 @@ body {
   }
   &__pri {
     color: var(--text-color);
+    position: absolute;
+    font-size: 0.85rem;
+    right: 3.25rem;
+    border-radius: 9px;
+    padding: 0 5px;
   }
 
   &__delete {
-    height: 1.75rem;
+    height: 1.25rem;
     position: absolute;
     right: 0;
     &:hover {
@@ -76,6 +82,10 @@ body {
       background-color: whitesmoke;
     }
   }
+  &__edit {
+    @extend .todos__delete;
+    right: 1.57rem;
+  }
   &__checkbox {
     width: 1.5rem;
     height: 1.5rem;
@@ -83,49 +93,55 @@ body {
   }
 
   &__userInput {
-    position: relative;
+    width: 100%;
     display: flex;
-    align-items: center;
+    justify-content: center;
+
     &__task {
-      width: 20rem;
+      width: 80%;
       height: 2rem;
       border-radius: 10px;
       font-size: 1.25rem;
       position: absolute;
-      padding-left: 5rem;
+      padding-left: 1rem;
+      background-color: var(--secondary-background);
+      border: none;
+      border-bottom: 1px solid wheat;
+      color: var(--text-color);
       &:placeholder-shown {
-        padding-left: 5rem;
+        padding-left: 1rem;
       }
       &:focus,
       &:active {
-        padding-left: 5rem;
+        padding-left: 1rem;
+        border: none;
+        border-bottom: 1px solid wheat;
       }
     }
     &__priority {
       position: absolute;
-      height: 2rem;
-      border-radius: 10px;
+      height: 2.1rem;
       font-size: 0.8rem;
-      color: #242424;
-      left: 0;
-      background-color: #f8f8f8;
-      border: 1px solid #ccc;
+      color: var(--text-color);
+      right: 20%;
+      background-color: transparent;
+      border: none;
       padding-left: 0.5rem;
+      outline: none;
       cursor: pointer;
       &:focus,
       &:active {
         outline: none;
-        border-color: #646cff;
-        box-shadow: 0 0 5px #646cff;
       }
     }
 
     &__btn {
       position: absolute;
+      height: 2.2rem;
       border-radius: 8px;
       border: 1px solid transparent;
-      padding: 0.6em 1.2em;
-      right: 0;
+      padding: 0 1rem;
+      right: 8%;
       font-size: 1em;
       font-weight: 500;
       font-family: inherit;
@@ -207,16 +223,53 @@ input[type="checkbox"]:checked + label:before {
 
     &Data {
       @include subIcons;
+      animation: bounce-in 0.5s ease forwards 0.5s;
     }
     &Print {
       @include subIcons;
       margin-right: 8.5rem;
+      animation: bounce-in 0.5s ease forwards 1s;
+    }
+
+    &History {
+      @include subIcons;
+      animation: bounce-in 0.5s ease forwards 1.5s;
     }
     &List {
       @include subIcons;
+      animation: bounce-in 0.5s ease forwards 2s;
     }
-    &History {
-      @include subIcons;
+    &-visible {
+      visibility: visible;
+      &__data {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      &__print {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      &__lis {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      &History {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
+  }
+}
+@keyframes bounce-in {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

@@ -8,4 +8,7 @@
   fill: white;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform: translateY(50px);
+  opacity: 0;
 }

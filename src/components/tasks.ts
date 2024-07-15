@@ -11,6 +11,7 @@ export function createTaskElement(
   const newTask = document.createElement("label");
   const priority = document.createElement("span");
   const deleteOldTask = document.createElement("img");
+  const editOldTask = document.createElement("img");
 
   newTodoBox.className = "todos__newTodoBox";
   form.appendChild(newTodoBox);
@@ -24,11 +25,21 @@ export function createTaskElement(
   newTask.textContent = item.task;
   newTodoBox.appendChild(newTask);
 
+  // priority
   priority.className = "todos__pri";
   priority.textContent = item.priority;
+
+  if (item.priority === "low") {
+    priority.style.backgroundColor = "#FF9913";
+  } else if (item.priority === "high") {
+    priority.style.backgroundColor = "#D2222D";
+  } else {
+    priority.style.backgroundColor = "#238823";
+  }
   newTodoBox.appendChild(priority);
 
-  deleteOldTask.src = "/delete.png";
+  // delete button
+  deleteOldTask.src = "/bin.png";
   deleteOldTask.className = "todos__delete";
   newTodoBox.appendChild(deleteOldTask);
 
@@ -36,6 +47,39 @@ export function createTaskElement(
     removeOldList(newTodoBox, item, plan)
   );
 
+  // edit button
+  editOldTask.src = "/edit.png";
+  editOldTask.className = "todos__edit";
+  newTodoBox.appendChild(editOldTask);
+
+  editOldTask.addEventListener("click", () => {
+    const currentText = newTask.innerText.trim();
+    newTask.style.display = "none";
+
+    const editInput = document.createElement("input");
+    editInput.type = "text";
+    editInput.value = currentText;
+    newTodoBox.appendChild(editInput);
+    editInput.focus();
+
+    editInput.addEventListener("blur", () => {
+      const newText = editInput.value.trim();
+
+      // display the updated text
+      if (newText !== "") {
+        newTask.innerText = newText;
+      }
+
+      // remove the edit-input
+      if (editInput.parentNode !== null) {
+        editInput.parentNode.removeChild(editInput);
+      }
+
+      newTask.style.display = "block";
+    });
+  });
+
+  // checkbox
   checkbox.addEventListener("change", function () {
     item.completed = checkbox.checked;
     updateStatus(plan);
