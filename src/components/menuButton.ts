@@ -43,12 +43,11 @@ export function createMenuButton(form: HTMLFormElement) {
 
   subMenuBox.append(subData, subList, subPrint, subHistory, subList);
   menuBtnBox.addEventListener("click", () => {
-    subMenuBox.style.visibility = "visable";
-    if (subMenuBox.style.visibility === "visible") {
-      subMenuBox.style.visibility = "hidden";
-    } else {
-      subMenuBox.style.visibility = "visible";
-    }
+    subMenuBox.classList.toggle("menu-sub-visible");
+    subHistory.classList.toggle("menu-sub-visable__his");
+    subList.classList.toggle("menu-sub-visable__lis");
+    subData.classList.toggle("menu-sub-visable__data");
+    subPrint.classList.toggle("menu-sub-visable__print");
   });
 
   return menuBtn;
